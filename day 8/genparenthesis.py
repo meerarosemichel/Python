@@ -1,0 +1,23 @@
+from typing import List
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        result: List[str] = []
+
+        def backtrack(current: str, open_count: int, close_count: int) -> None:
+            if len(current) == 2 * n:
+                result.append(current)
+                return
+
+            if open_count < n:
+                backtrack(current + "(", open_count + 1, close_count)
+
+            if close_count < open_count:
+                backtrack(current + ")", open_count, close_count + 1)
+
+        backtrack("", 0, 0)
+        return result
+if __name__ == "__main__":
+    sol = Solution()
+    print("Result:", sol.generateParenthesis(1))
+    print("TestResult:", sol.generateParenthesis(3))
